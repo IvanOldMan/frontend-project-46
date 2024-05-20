@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
+import {cwd} from 'node:process';
+import { resolve } from 'node:path';
+import parser from '../src/parser.js';
 const program = new Command();
 
 program
@@ -10,6 +13,12 @@ program
 	.argument('<filepath2>')
 	.version('0.0.1')
 	.option('-f, --format [type]', 'output format')
-	.helpOption('-h, --help', 'output usage information');
+	.helpOption('-h, --help', 'output usage information')
+	.action((filepath1, filepath2) => {
+			const getFilePath = (filepath) => filepath.startsWith('/') ? filepath : resolve(cwd(), filepath);
+
+			console.log(parser(getFilePath(filepath1)));
+			console.log(parser(getFilePath(filepath2)));
+	});
 
 program.parse();

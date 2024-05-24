@@ -1,14 +1,14 @@
 import _ from 'lodash';
 import {resolve} from "node:path";
 import {cwd} from "node:process";
-import parser from "./parser.js";
+import parsers from "./parsers.js";
 
 
 const getFilePath = (filepath) => filepath.startsWith('/') ? filepath : resolve(cwd(), filepath);
 
 const gendiff = (filepath1, filepath2) => {
-		const firstFile = parser(getFilePath(filepath1));
-		const secondFile = parser(getFilePath(filepath2));
+		const firstFile = parsers(getFilePath(filepath1));
+		const secondFile = parsers(getFilePath(filepath2));
 
 	const data = _.sortBy(Object.entries(_.assign({}, firstFile, secondFile)));
 	const a = data.reduce((acc, [key, value]) => {

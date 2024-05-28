@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import {resolve} from "node:path";
 import {cwd} from "node:process";
 import parsers from "./parsers.js";

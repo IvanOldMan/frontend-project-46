@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 import { Command } from 'commander';
-import stylish from "../src/stylish.js";
 import gendiff from "../src/index.js";
 
 

@@ -16,7 +16,7 @@ program
 	.helpOption('-h, --help', 'output usage information')
 	.action((filepath1, filepath2) => {
 			const formater = program.opts().format;
-			console.log(gendiff(filepath1, filepath2, formater))
+			console.log(`${gendiff(filepath1, filepath2, formater)}`)
 	});
 
 program.parse();

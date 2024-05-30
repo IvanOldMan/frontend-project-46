@@ -9,11 +9,11 @@ const makeDiffTree = (firstFile, secondFile) => {
 
     if (typeof value1 === 'object' && typeof value2 === 'object') {
       const child = makeDiffTree(value1, value2);
-      return {key, children: child , status: 'none'};
+      return {key, children: child , status: 'parent'};
     } else if (Object.hasOwn(firstFile, key) && Object.hasOwn(secondFile, key)) {
       return value1 === value2
       ? { key, value: value2,  status: 'unchanged' }
-      : [{ key, value: value1,  status: 'deleted' }, { key, value: value2,  status: 'added' }];
+      : { key, oldValue: value1, newValue: value2, status: 'changed' };
     } else {
       return Object.hasOwn(firstFile, key)
       ? { key, value: value1,  status: 'deleted' }

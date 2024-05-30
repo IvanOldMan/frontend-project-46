@@ -1,11 +1,7 @@
 ### Hexlet tests and linter status:
+[![asciicast](https://asciinema.org/a/wI3rO1xxRAgx70e95RlNJsd3h.svg)](https://asciinema.org/a/wI3rO1xxRAgx70e95RlNJsd3h)
+
 [![Actions Status](https://github.com/IvanOldMan/frontend-project-46/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/IvanOldMan/frontend-project-46/actions)
-
-[![asciicast](https://asciinema.org/a/RzJBipPHEjQzxC4fbGYH6zjbw.svg)](https://asciinema.org/a/RzJBipPHEjQzxC4fbGYH6zjbw)
-
-[![asciicast](https://asciinema.org/a/Geh9NayGLxY5kaBmVRlCE9CyO.svg)](https://asciinema.org/a/Geh9NayGLxY5kaBmVRlCE9CyO)
-
-[![asciicast](https://asciinema.org/a/7YmmCFxTTz9SQ9ultkBSz0eEk.svg)](https://asciinema.org/a/7YmmCFxTTz9SQ9ultkBSz0eEk)
 
 [![Maintainability](https://api.codeclimate.com/v1/badges/2b7f203458153382425e/maintainability)](https://codeclimate.com/github/IvanOldMan/frontend-project-46/maintainability)
 

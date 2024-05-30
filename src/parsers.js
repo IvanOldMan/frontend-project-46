@@ -2,18 +2,20 @@ import fs from 'fs'
 import YAML from 'yaml'
 import { extname } from "node:path";
 
-const parsers = (filePath) => {
-  const file = fs.readFileSync(filePath, 'utf8');
-  const fileExtension = extname(filePath).toLocaleLowerCase();
+const extension = {
+  json: JSON.parse,
+  yaml: YAML.parse,
+  yml: YAML.parse
+}
 
-  switch (fileExtension) {
-    case '.json':
-      return JSON.parse(file);
-    case '.yaml':
-      return YAML.parse(file);
-    case '.yml':
-      return YAML.parse(file);
+const parsers = (filePath) => {
+  const fileExtension = extname(filePath).toLocaleLowerCase().slice(1);
+
+  if (!Object.hasOwn(extension, fileExtension)) {
+    throw new Error(`Unknown file extension. Impossible to read '*.${fileExtension}' extension`);
   }
+  const file = fs.readFileSync(filePath, 'utf8');
+  return extension[fileExtension](file);
 };
 
 export default parsers;

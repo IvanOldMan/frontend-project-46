@@ -1,34 +1,46 @@
-const objectToString =(obj, deep = 0) => {
-  const currentIndent = deep + 1;
-  const a = Object.entries(obj).map(([key, value]) => {
-    if (typeof value === 'object' && value !== null) {
-      value = objectToString(value, currentIndent);
-    }
-    return `${' '.repeat(currentIndent * 4)}${key}: ${value}`;
-  }).join('\n');
-  return `{\n${a}\n${' '.repeat(deep * 4)}}`;
-};
-
-const stat = {
+const statuses = {
   added: '+ ',
-  unchanged: '  ',
   deleted: '- ',
-  none: '  '
-};
+}
+
+const stringify = (str, indent) => `{\n${str}\n${' '.repeat(indent * 4)}}`;
+
+const makeStr = (key, value, indent, status = '  ') => {
+  const valueIsObject = typeof value === 'object' && value !== null;
+  let currentValue = '';
+  if (valueIsObject) {
+    const p = Object.entries(value).map(([key, value]) => {
+      const currentIndent = indent + 1;
+      return makeStr(key, value, currentIndent);
+    }).join('\n');
+    currentValue = stringify(p, indent);
+  }
+  return `${status.padStart(indent * 4)}${key}: ${valueIsObject ? currentValue : value}`;
+}
+
 
 const stylish = (data, deep = 0) => {
-
   const currentIndent = deep + 1;
 
-  const a = data.map((item) => {
-    let value = Object.hasOwn(item, 'children') ? stylish(item.children, currentIndent) : item.value;
-    if (typeof value === 'object' && value !== null) {
-      value = objectToString(value, currentIndent);
+  const a = data.flatMap((item) => {
+    const {key, status} = item;
+
+    switch (status) {
+      case 'added':
+        return makeStr(key, item.value, currentIndent, statuses[status]);
+      case 'deleted':
+        return makeStr(key, item.value, currentIndent, statuses[status]);
+      case 'unchanged':
+        return makeStr(key, item.value, currentIndent);
+      case 'changed':
+        return [makeStr(key, item.oldValue, currentIndent, '- '), makeStr(key, item.newValue, currentIndent, '+ ')];
+      case 'parent':
+        return makeStr(key, stylish(item.children, currentIndent), currentIndent);
     }
-    return `${stat[item.status].padStart(currentIndent * 4)}${item.key}: ${value}`;
   }).join('\n');
 
-  return `{\n${a.padStart(currentIndent * 4)}\n${' '.repeat(deep * 4)}}`;
-};
+  return stringify(a, deep);
+
+}
 
 export default stylish;

@@ -33,7 +33,7 @@ const stylish = (data, deep = 0) => {
       case 'unchanged':
         return makeStr(key, item.value, currentIndent);
       case 'changed':
-        return [makeStr(key, item.oldValue, currentIndent, '- '), makeStr(key, item.newValue, currentIndent, '+ ')];
+        return [makeStr(key, item.oldValue, currentIndent, statuses.deleted), makeStr(key, item.newValue, currentIndent, statuses.added)];
       case 'parent':
         return makeStr(key, stylish(item.children, currentIndent), currentIndent);
     }

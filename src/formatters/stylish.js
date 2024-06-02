@@ -7,15 +7,16 @@ const stringify = (str, indent) => `{\n${str}\n${' '.repeat(indent * 4)}}`;
 
 const makeStr = (key, value, indent, status = '  ') => {
   const valueIsObject = typeof value === 'object' && value !== null;
-  let currentValue = '';
-  if (valueIsObject) {
+
+  const objectToString = () => {
     const p = Object.entries(value).map(([key, value]) => {
       const currentIndent = indent + 1;
       return makeStr(key, value, currentIndent);
     }).join('\n');
-    currentValue = stringify(p, indent);
-  }
-  return `${status.padStart(indent * 4)}${key}: ${valueIsObject ? currentValue : value}`;
+    return stringify(p, indent);
+  };
+
+  return `${status.padStart(indent * 4)}${key}: ${valueIsObject ? objectToString() : value}`;
 }
 
 

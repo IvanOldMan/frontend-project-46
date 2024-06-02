@@ -1,5 +1,6 @@
 import stylish from "./stylish.js";
 import plain from "./plain.js";
+import json from "./json.js";
 
 const formatter = (format, diffTree) => {
   switch (format) {
@@ -7,6 +8,8 @@ const formatter = (format, diffTree) => {
       return stylish(diffTree);
     case "plain":
       return plain(diffTree);
+    case "json":
+      return json(diffTree);
   }
 };
 

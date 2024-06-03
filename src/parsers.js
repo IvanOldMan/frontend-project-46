@@ -1,12 +1,12 @@
-import fs from 'fs'
-import YAML from 'yaml'
-import { extname } from "node:path";
+import fs from 'fs';
+import YAML from 'yaml';
+import { extname } from 'node:path';
 
 const extension = {
   json: JSON.parse,
   yaml: YAML.parse,
-  yml: YAML.parse
-}
+  yml: YAML.parse,
+};
 
 const parsers = (filePath) => {
   const fileExtension = extname(filePath).toLocaleLowerCase().slice(1);

@@ -7,22 +7,24 @@ const stringify = (str, indent) => `{\n${str}\n${' '.repeat(indent * 4)}}`;
 
 const makeStr = (key, value, indent, status = '  ') => {
   const valueIsObject = typeof value === 'object' && value !== null;
-  let currentValue = '';
-  if (valueIsObject) {
-    const p = Object.entries(value).map(([key, value]) => {
+
+  const objToString = () => {
+    const str = Object.entries(value).map(([key, value]) => {
       const currentIndent = indent + 1;
       return makeStr(key, value, currentIndent);
     }).join('\n');
-    currentValue = stringify(p, indent);
+
+    return stringify(str, indent);
   }
-  return `${status.padStart(indent * 4)}${key}: ${valueIsObject ? currentValue : value}`;
+
+  return `${status.padStart(indent * 4)}${key}: ${valueIsObject ? objToString() : value}`;
 }
 
 
 const stylish = (data, deep = 0) => {
   const currentIndent = deep + 1;
 
-  const a = data.flatMap((item) => {
+  const str = data.flatMap((item) => {
     const {key, status} = item;
 
     switch (status) {
@@ -39,7 +41,7 @@ const stylish = (data, deep = 0) => {
     }
   }).join('\n');
 
-  return stringify(a, deep);
+  return stringify(str, deep);
 
 }
 

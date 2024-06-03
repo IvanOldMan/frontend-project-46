@@ -12,7 +12,7 @@ const readFile = (filepath) => fs.readFileSync(getFixturePath(filepath), 'utf-8'
 
 const extList = ['.json', '.yaml', '.yml'];
 
-test.only.each(extList)('test stylish', (type) => {
+test.each(extList)('stylish_test', (type) => {
   const filepath1 = getFixturePath(`file1${type}`);
   const filepath2 = getFixturePath(`file2${type}`);
   const result = readFile('stylish_result.txt');
@@ -20,7 +20,7 @@ test.only.each(extList)('test stylish', (type) => {
   expect(gendiff(filepath1, filepath2, 'stylish')).toEqual(result);
 });
 
-test.only.each(extList)('test plain', (type) => {
+test.each(extList)('plain_test', (type) => {
   const filepath1 = getFixturePath(`file1${type}`);
   const filepath2 = getFixturePath(`file2${type}`);
   const result = readFile('plain_result.txt');
@@ -28,7 +28,7 @@ test.only.each(extList)('test plain', (type) => {
   expect(gendiff(filepath1, filepath2, 'plain')).toEqual(result);
 });
 
-test.only.each(extList)('test json', (type) => {
+test.each(extList)('json_test', (type) => {
   const filepath1 = getFixturePath(`file1${type}`);
   const filepath2 = getFixturePath(`file2${type}`);
   const result = readFile('json_result.txt');

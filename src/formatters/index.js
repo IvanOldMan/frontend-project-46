@@ -11,7 +11,7 @@ const formatter = (format, diffTree) => {
     case 'json':
       return json(diffTree);
     default:
-      return null;
+      throw new Error(`Unknown output format '${format}'. Please select one of the supported formats [stylish, plain, json]'`);
   }
 };
 

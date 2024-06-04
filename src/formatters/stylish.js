@@ -38,7 +38,7 @@ const stylish = (data, deep = 0) => {
       case 'parent':
         return makeStr(key, stylish(item.children, curIndent), curIndent);
       default:
-        return null;
+        throw new Error(`Unknown status ${status} for node ${key}'`);
     }
   }).join('\n');
 
